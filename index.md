@@ -19,7 +19,7 @@ We get the senate election result by MIT Election Data and Science Lab[1]. It co
 On the other hand, there is another type of quotation: quotations **mentioning the candidates** but not necessarily said by themselves. In QuoteBank corpus, we can also find quotations **mentioning** the Senate election candidates in news articles from 2015 to 2020. By aggregating the quotations based on candidates and dates again, we can look at how the number of quotations mentioning a slected candidate changes over time. Let's look at Bernie Sanders from this perspective:
 
 <p align="center">
-  <img src="figures/Sanders_said.png" />
+  <img src="figures/Sanders_mention.png" />
 </p>
 
 (Note: Since Quotebank may extract different numbers of quotations each month, we weigh quotations in each month by the inverse of the total number of quotes of that month contained in Quotebank. Detail can be found in jupyter notebook of github repository.)
@@ -29,7 +29,7 @@ On the other hand, there is another type of quotation: quotations **mentioning t
 We can also calculate each candidate's total quotations before the election and compare the number of total quotations to election results. For both types of the quotations, we use scatter plots to show how total quotation numbers and vote rates are related.
 
 <p align="center">
-  <img src="figures/Sanders_said.png" />
+  <img src="figures/quote_vs_vote.png" />
 </p>
 
 We further examine the correlation for both types of the quotations by calculating the **Pearson Correlation Coefficient**. 
@@ -46,21 +46,19 @@ While the above finding accords with our intuition (that more quotations indicat
 QuoteBank, however, only provides the url where each quote is extracted. So, we first extract the main webdomain of the urls from 50 thousand quotations, and examine distribution of source media. 
 
 <p align="center">
-  <img src="figures/Sanders_said.png" />
+  <img src="figures/media_hist.png" />
 </p>
 
 As we can see from the histogram, the distribution is heavy tailed, with most quotations from a few media. We also notice that the 50 thousand quotations have over 4000 different media sources, inidcating that the set of quotations from the QuoteBank is an efficient representation of all quotations in news articles.
 
 Since it is difficult to automatically find the website view data of all media source, we decide to manually search the website view statistics of the top 30 frequently appearing media. Among the rest media, we manually search the website view statistics of 10 randomly selected media, and then we use the median value to weigh the quotations of the rest media. Below, we show the website view of top 10 frequently appearing media in Quotebank.
 
-<p align="center">
-  <img src="figures/Sanders_said.png" />
-</p>
+**To Be Added**
 
 Now, we can look at the weighted quotations said by Bernie Sanders:
 
 <p align="center">
-  <img src="figures/Sanders_said.png" />
+  <img src="figures/Sanders_said_weighted.png" />
 </p>
 
 We can also calculate the correlation between weighted total quotations (before election) and vote rate:
