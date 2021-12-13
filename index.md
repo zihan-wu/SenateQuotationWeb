@@ -8,6 +8,9 @@ In general, more quotations in news articles indicate more popularity or at leas
 
 We get the senate election result by MIT Election Data and Science Lab[1]. It contains the election information of each candidate. We use the dataset to get the identity, party affiliation, and resulting votes of each candidate. We select the candidates participating in elections **since 2016**. In QuoteBank corpus, we find quotations said by these candidates in news articles from 2015 to 2020. By aggregating the quotations based on candidates and dates, we may look at how the number of quotations said by a slected candidate changes over time. Let's look at an example from Bernie Sanders:
 
+<p align="center">
+  ![Sanders_Said_raw](https://user-images.githubusercontent.com/55819255/145854507-f0fe96bd-4cf0-4fce-a1f3-9ba914faecdf.png)
+</p>
 
 
 
