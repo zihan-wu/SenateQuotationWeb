@@ -1,4 +1,4 @@
-## Welcome to GitHub Pages
+## Can Quotations of Politicians Indicate Election Results?
 
 You can use the [editor on GitHub](https://github.com/zihan-wu/SenateQuotationWeb/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
