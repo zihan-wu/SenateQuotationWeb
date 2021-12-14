@@ -53,7 +53,10 @@ As we can see from the histogram, the distribution is heavy tailed, with most qu
 
 Since it is difficult to automatically find the website view data of all media source, we decide to manually search the website view statistics of the top 30 frequently appearing media. Among the rest media, we manually search the website view statistics of 10 randomly selected media, and then we use the median value to weigh the quotations of the rest media. Below, we show the website view of top 10 frequently appearing media in Quotebank.
 
-**To Be Added**
+
+<p align="center">
+  <img src="figures/media_df.png" width="500"/>
+</p>
 
 Now, we can look at the weighted quotations said by Bernie Sanders:
 
