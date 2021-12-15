@@ -78,19 +78,19 @@ Different politicians gain public exposure in different ways. Some politicians m
 To do this, we extract the weighted quotations said by each candidate **within 300 days** (roughly a year) before the election day. We then accumulate the weighted quotations **by month**, so that we get a 10 dimensional feature vector per candidate. This vector reflects the how weighted quotations said by each candidate change over time. The vectors are **L2 normalized**, so that the euclidean distance between them reflects the cosine similarity, which better measures the distance between different shapes of exposure-gaining process. We then apply **KMeans clustering** to the feature vector (K=2 has the lowest silhouette score). To better visualize the cluster, we use PCA to lower the dimension to 2 and label cluster with different colors:
 
 <p align="center">
-  <img src="figures/Sanders_said_weighted.png" />
+  <img src="figures/pca_cluster.png" />
 </p>
 
 The method appears to be efficient at separating the clusters. We then look at the centroid of the two clusters and see two types of exposure gaining: some politicians have **one high peak** of quotations just before the election (type 0), while others have **several peaks** before the election (type 1).
 
 <p align="center">
-  <img src="figures/Sanders_said_weighted.png" />
+  <img src="figures/2_types_gain.png"  width="800"/>
 </p>
 
 For each type, we look at one example: Dianne Feinstein for type 0 and Allen Buckley for type 1.
 
 <p align="center">
-  <img src="figures/Sanders_said_weighted.png" />
+  <img src="figures/2_types_gain_sample.png"  width="800"/>
 </p>
 
 ## Quotations can predict election result!
@@ -101,16 +101,16 @@ We further explore if the election results can be predicted from the quotation d
 
 ## Sentiment of quotations cannot reflect support rate.
 
-For quotations mentioning senate candidates, they contain attitudes (positive or negative) of the speaker toward the mentioned politicians. We can use VADER sentiment analysis package to extract such attitudes. For instance, let's look at how sentiments toward Bernie Sanders changes over time.
+For quotations mentioning senate candidates, they contain attitudes (positive or negative) of the speaker toward the mentioned politicians. We can use **VADER** sentiment analysis package to extract such attitudes. For instance, let's look at how sentiments toward Bernie Sanders changes over time.
 
 <p align="center">
-  <img src="figures/Sanders_said_weighted.png" />
+  <img src="figures/sanders_senti.png" />
 </p>
 
-To examine whether sentiments in quotations can represent support rate, we can calculate the average sentiment score of quotations mentioning each candidate within a year before the election. This can be visualized by scatter plots of average sentiment score and final vote rate:
+To examine whether sentiments in quotations can represent support rate, we can calculate the **average sentiment score of quotations** mentioning each candidate **within a year before the election**. This can be visualized by scatter plots of average sentiment score and final vote rate:
 
 <p align="center">
-  <img src="figures/Sanders_said_weighted.png" />
+  <img src="figures/senti_vs_vote.png" />
 </p>
 
 The Pearson Correlation is -0.11, with P-Value 0.09 (> 0.05). As a result, there is no significant correlation between them. **Sentiment of quotations toward politicians cannnot truely reflect the support rate!** This may be counter-intuitive. However, in 2016 election, Donald Trump won the presidential election while most news agencies did not favor him. Nowadays, news articles fail to convey the ideas of most people. 
