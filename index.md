@@ -98,9 +98,10 @@ For each type, we look at one example: Dianne Feinstein for type 0 and Allen Buc
 
 We further explore if the election results can be predicted from the quotation data. We use the **monthly aggregated quotation feature vectors** used in the clustering analysis above. Besides, party affiliation can have a significant effect on the result. For senate candidates in each state's election, we find the **vote rate of their affiliated party** in the previous presidential election[2]. This party vote rate reflects the overall ideology of the state. We concatenate this voting feature to the quotation feature vectors and use this 11-dimensional vector for predicting the election result.
 
-**TO DO: add results**
+We use XGBoost classifier. First, we calculate the accuracy and precision on the training datasets by 5 fold cross-validation. Cross-Validated training precision is 0.73 (+/- 0.35) and  cross-validated training recall is 0.69 (+/- 0.23). Then, we fit our model in the training data and calculate accuracy and F1 score on the test data. We obtain accuracy 0.9069767441860465 and f1 score 0.9 on the test data.
 
-## Sentiment of quotations cannot reflect support rate.
+
+## Sentiment of quotations reflect support rate.
 
 For quotations mentioning senate candidates, they contain attitudes (positive or negative) of the speaker toward the mentioned politicians. We can use the **VADER** sentiment analysis package to extract such attitudes. For instance, let's look at how sentiments toward Bernie Sanders changes over time.
 
@@ -108,13 +109,13 @@ For quotations mentioning senate candidates, they contain attitudes (positive or
   <img src="figures/sanders_senti.png" />
 </p>
 
-To examine whether sentiments in quotations can represent support rate, we can calculate the **average sentiment score of quotations** mentioning each candidate **within a year before the election**. This can be visualized by scatter plots of average sentiment score and final vote rate:
+To examine whether sentiments in quotations can represent support rate, we can calculate the **average sentiment score of quotations** mentioning each candidate **within a year before the election**. We discard those which have low vote_rate (< 1%). The relation can be visualized by scatter plots of average sentiment score and final vote rate:
 
 <p align="center">
   <img src="figures/senti_vs_vote.png" />
 </p>
 
-The Pearson Correlation is -0.11, with P-Value 0.09 (> 0.05). As a result, there is no significant correlation between them. **Sentiment of quotations toward politicians can not truly reflect the support rate!** This may be counter-intuitive. However, in the 2016 U.S. presidential election, Donald Trump won the presidential election while most news agencies did not favor him. Nowadays, news articles fail to convey the ideas of most people. 
+The Pearson Correlation is -0.11, with P-Value 0.03 (< 0.05), which is statistically significant. Such observation seems to be contrary to the intuition that more favorable people will recieve more votes. There are two possible explaination for this: (1) the mention data are limited and the correlation here is spurious. (2) Those candidates who adopt a middle way campaign strategy will be likely to receive more votes from both sides.  
 
 ## Reference:
 
