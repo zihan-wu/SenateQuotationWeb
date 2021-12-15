@@ -10,29 +10,29 @@ In this project, we will focus on the U.S. Senate elections. First, combining th
 
 ## Extract candidate quotes:
 
-We get the senate election result by MIT Election Data and Science Lab[1]. It contains the election information of each candidate. We use the dataset to get the identity, party affiliation, and resulting votes of each candidate. We select the candidates participating in **U.S. Senate elections since 2016**. In QuoteBank corpus, we find quotations **said by** these candidates in news articles **from 2015 to 2020**. By aggregating the quotations based on candidates and dates, we may look at how the number of quotations said by a slected candidate changes over time. Let's look at an example from Bernie Sanders:
+We get the senate election result from MIT Election Data and Science Lab[1]. It contains the election information of each candidate. We use the dataset to get the identity, party affiliation, and resulting votes of each candidate. We select the candidates participating in **U.S. Senate elections since 2016**. In QuoteBank corpus, we find quotations **said by** these candidates in news articles **from 2015 to 2020**. By aggregating the quotations based on candidates and dates, we may look at how the number of quotations said by a selected candidate changes over time. Let's look at an example from Bernie Sanders:
 
 <p align="center">
   <img src="figures/Sanders_said.png" />
 </p>
 
-On the other hand, there is another type of quotation: quotations **mentioning the candidates** but not necessarily said by themselves. In QuoteBank corpus, we can also find quotations **mentioning** the Senate election candidates in news articles from 2015 to 2020. By aggregating the quotations based on candidates and dates again, we can look at how the number of quotations mentioning a slected candidate changes over time. Let's look at Bernie Sanders from this perspective:
+On the other hand, there is another type of quotation: quotations **mentioning the candidates** but not necessarily said by themselves. In QuoteBank corpus, we can also find quotations **mentioning** the Senate election candidates in news articles from 2015 to 2020. By aggregating the quotations based on candidates and dates again, we can look at how the number of quotations mentioning a selected candidate changes over time. Let's look at Bernie Sanders from this perspective:
 
 <p align="center">
   <img src="figures/Sanders_mention.png" />
 </p>
 
-(Note: Since Quotebank may extract different numbers of quotations each month, we weigh quotations in each month by the inverse of the total number of quotes of that month contained in Quotebank. Detail can be found in jupyter notebook of github repository.)
+(Note: Since Quotebank may extract different numbers of quotations each month, we normalize quotations in each month by the total number of quotes of that month contained in Quotebank. Detail can be found in the jupyter notebook in the GitHub repository.)
 
 ## Total quotation is positively correlated to results.
 
-We can also calculate each candidate's total quotations before the election and compare the number of total quotations to election results. For both types of the quotations, we use scatter plots to show how total quotation numbers and vote rates are related.
+We can also calculate each candidate's total quotations before the election and compare the number of total quotations to election results. For both types of quotations, we use scatter plots to show how total quotation numbers and vote rates are related.
 
 <p align="center">
   <img src="figures/quote_vs_vote.png" />
 </p>
 
-We further examine the correlation for both types of the quotations by calculating the **Pearson Correlation Coefficient**. 
+We further examine the correlation for both types of quotations by calculating the **Pearson Correlation Coefficient**. 
 
 1. For the quotations said by the senate candidates, we have Pearson Correlation 0.65, with P-Value 7.6e-23. 
 2. For the quotations said by the senate candidates, we have Pearson Correlation 0.53, with P-Value 1.1e-22.
@@ -43,15 +43,15 @@ We further examine the correlation for both types of the quotations by calculati
 
 While the above finding accords with our intuition (that more quotations indicate more success), purely counting the number of quotations ignores the qualities of different quotations. In fact, a quotation in New York Times means much more fame than a quotation from a local tabloid. Therefore, we weigh each quotation by the website views of the source media.
 
-QuoteBank, however, only provides the url where each quote is extracted. So, we first extract the main webdomain of the urls from 50 thousand quotations, and examine distribution of source media. 
+QuoteBank, however, only provides the URL where each quote is extracted. So, we first extract the main webdomain of the URLs from 50 thousand quotations and examine the distribution of source media:
 
 <p align="center">
   <img src="figures/media_hist.png" />
 </p>
 
-As we can see from the histogram, the distribution is heavy tailed, with most quotations from a few media. We also notice that the **50 thousand quotations have over 4000 different media sources**, inidcating that the set of quotations from the QuoteBank is an efficient representation of all quotations in news articles.
+As we can see from the histogram, the distribution is heavy-tailed, with most quotations from a few media. We also notice that the **50 thousand quotations have over 4000 different media sources**, indicating that the set of quotations from the QuoteBank is an efficient representation of all quotations in news articles.
 
-Since it is difficult to automatically find the website view data of all media source, we decide to manually search the website view statistics of the **top 30 frequently appearing media**. Among the rest media, we manually search the website view statistics of **10 randomly selected media**, and then we use the **median value** (which is more robust to outlier) to weigh the quotations of the rest media. Below, we show the website view of top 10 frequently appearing media in Quotebank.
+Since it is difficult to automatically find the website view data of all media sources, we decide to manually search the website view statistics of the **top 30 frequently appearing media**. Among the rest media, we manually search the website view statistics of **10 randomly selected media**, and then we use the **median value** (which is more robust to outlier) to weigh the quotations of the rest media. Below, we show the website view of the top 10 frequently appearing media in Quotebank.
 
 
 <p align="center">
@@ -64,18 +64,19 @@ Now, we can look at the weighted quotations said by Bernie Sanders:
   <img src="figures/Sanders_said_weighted.png" />
 </p>
 
-We can also calculate the correlation between weighted total quotations (before election) and vote rate:
+We can also calculate the correlation between weighted total quotations (before the elections) and vote rate:
 
 1. For the quotations said by the senate candidates, we have Pearson Correlation 0.65, with P-Value 1.2e-22. 
 2. For the quotations said by the senate candidates, we have Pearson Correlation 0.59, with P-Value 3.4e-29.
 
-The result is very close to the correlations between number of quotations and vote rate. **Senates with higher number of weighted quotations before election also tend to have higher vote rate!**
+The result is very close to the correlations between the number of quotations and vote rate. **Senates with a higher number of weighted quotations before the election also tend to have a higher vote rate!**
+
 
 ## Different exposure-gaining process for different politicians.
 
-Different politicians gain public exposure in different ways. Some politicians may gain popularity through years of accumulating fame, while some others may gain overnight fame through some accidents or sponsorships from other powerful people. As a result, if we look at **the curves of how weighted quotations change before election**, we will probably see different shapes. We examine how the weighted quotations of each politician change over time, and whether there are different types of exposure-gaining process.
+Different politicians gain public exposure in different ways. Some politicians may gain popularity through years of accumulating fame, while some others may gain overnight fame through some accidents or sponsorships from other powerful people. As a result, if we look at **the curves of how weighted quotations change before election**, we will probably see different shapes. We examine how the weighted quotations of each politician change over time, and whether there are different types of exposure-gaining processes.
 
-To do this, we extract the weighted quotations said by each candidate **within 300 days** (roughly a year) before the election day. We then accumulate the weighted quotations **by month**, so that we get a 10 dimensional feature vector per candidate. This vector reflects the how weighted quotations said by each candidate change over time. The vectors are **L2 normalized**, so that the euclidean distance between them reflects the cosine similarity, which better measures the distance between different shapes of exposure-gaining process. We then apply **KMeans clustering** to the feature vector (K=2 has the lowest silhouette score). To better visualize the cluster, we use PCA to lower the dimension to 2 and label cluster with different colors:
+To do this, we extract the weighted quotations said by each candidate **within 300 days** (roughly a year) before the election day. We then accumulate the weighted quotations **by month**, so that we get a 10-dimensional feature vector per candidate. This vector reflects how weighted quotations said by each candidate change over time. The vectors are **L2 normalized**, so that the euclidean distance between them reflects the cosine similarity, which better measures the distance between different shapes of the exposure-gaining process. We then apply **KMeans clustering** to the feature vector (K=2 has the lowest silhouette score). To better visualize the cluster, we use PCA to lower the dimension to 2 and label the cluster with different colors:
 
 <p align="center">
   <img src="figures/pca_cluster.png" />
@@ -95,13 +96,13 @@ For each type, we look at one example: Dianne Feinstein for type 0 and Allen Buc
 
 ## Quotations can predict election result!
 
-We further explore if the election results can be predicted from the quotation data. We use the **monthly aggregated quotation feature vectors** used in clustering analysis above. Besides, the party affiliation can have significant effect on the result. For senate candidates in each state's election, we find the **vote rate of their affiliated party** in previous presidential election[2]. This party vote rate reflects the overall ideology of the state. We concatenate this vote feature to the quotation feature vectors and use this 11-dimensional vector for predicting the election result.
+We further explore if the election results can be predicted from the quotation data. We use the **monthly aggregated quotation feature vectors** used in the clustering analysis above. Besides, party affiliation can have a significant effect on the result. For senate candidates in each state's election, we find the **vote rate of their affiliated party** in the previous presidential election[2]. This party vote rate reflects the overall ideology of the state. We concatenate this voting feature to the quotation feature vectors and use this 11-dimensional vector for predicting the election result.
 
 **TO DO: add results**
 
 ## Sentiment of quotations cannot reflect support rate.
 
-For quotations mentioning senate candidates, they contain attitudes (positive or negative) of the speaker toward the mentioned politicians. We can use **VADER** sentiment analysis package to extract such attitudes. For instance, let's look at how sentiments toward Bernie Sanders changes over time.
+For quotations mentioning senate candidates, they contain attitudes (positive or negative) of the speaker toward the mentioned politicians. We can use the **VADER** sentiment analysis package to extract such attitudes. For instance, let's look at how sentiments toward Bernie Sanders changes over time.
 
 <p align="center">
   <img src="figures/sanders_senti.png" />
@@ -113,7 +114,7 @@ To examine whether sentiments in quotations can represent support rate, we can c
   <img src="figures/senti_vs_vote.png" />
 </p>
 
-The Pearson Correlation is -0.11, with P-Value 0.09 (> 0.05). As a result, there is no significant correlation between them. **Sentiment of quotations toward politicians cannnot truely reflect the support rate!** This may be counter-intuitive. However, in 2016 election, Donald Trump won the presidential election while most news agencies did not favor him. Nowadays, news articles fail to convey the ideas of most people. 
+The Pearson Correlation is -0.11, with P-Value 0.09 (> 0.05). As a result, there is no significant correlation between them. **Sentiment of quotations toward politicians can not truly reflect the support rate!** This may be counter-intuitive. However, in the 2016 U.S. presidential election, Donald Trump won the presidential election while most news agencies did not favor him. Nowadays, news articles fail to convey the ideas of most people. 
 
 ## Reference:
 
