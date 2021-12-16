@@ -113,7 +113,7 @@ We get the best performance using the XGBoost classifier. First, we calculate th
 **Quotations can be used to predict election results!**
 
 
-## Sentiment of quotations reflect support rate.
+## Do sentiments of quotations reflect support rate?
 
 In the analysis above, we have primarily focused on the quotations numbers but ignored the content of quotations. Nevertheless, if we look at quotations mentioning senate candidates, they contain attitudes (positive or negative) of the speaker toward the mentioned politicians. Thanks to the **VADER** sentiment analysis package, we can extract such attitudes. For instance, let's look at how monthly averaged sentiments toward Bernie Sanders changes over time.
 
