@@ -1,6 +1,6 @@
 # Can Quotations of Politicians Indicate Election Results?
 
-**Github Source:** https://github.com/epfl-ada/ada-2021-project-chilldatagroup.git
+[**View Code on Github**](https://github.com/epfl-ada/ada-2021-project-chilldatagroup.git)
 
 ## Introduction:
 
@@ -34,7 +34,7 @@ We can also calculate each candidate's total quotations before the election and 
 
 We further examine the correlation for both types of quotations by calculating the **Pearson Correlation Coefficient**. 
 
-1. For the quotations said by the senate candidates, we have Pearson Correlation 0.65, with P-Value 7.6e-23. 
+1. For the quotations said by the senate candidates, we have Pearson Correlation 0.61, with P-Value 3.5e-26. 
 2. For the quotations said by the senate candidates, we have Pearson Correlation 0.53, with P-Value 1.1e-22.
 
 **Senates with higher number of quotations before election tend to have higher vote rate!**
@@ -66,7 +66,7 @@ Now, we can look at the weighted quotations said by Bernie Sanders:
 
 We can also calculate the correlation between weighted total quotations (before the elections) and vote rate:
 
-1. For the quotations said by the senate candidates, we have Pearson Correlation 0.65, with P-Value 1.2e-22. 
+1. For the quotations said by the senate candidates, we have Pearson Correlation 0.62, with P-Value 1.8e-27. 
 2. For the quotations said by the senate candidates, we have Pearson Correlation 0.59, with P-Value 3.4e-29.
 
 The result is very close to the correlations between the number of quotations and vote rate. **Senates with a higher number of weighted quotations before the election also tend to have a higher vote rate!**
@@ -76,29 +76,39 @@ The result is very close to the correlations between the number of quotations an
 
 Different politicians gain public exposure in different ways. Some politicians may gain popularity through years of accumulating fame, while some others may gain overnight fame through some accidents or sponsorships from other powerful people. As a result, if we look at **the curves of how weighted quotations change before election**, we will probably see different shapes. We examine how the weighted quotations of each politician change over time, and whether there are different types of exposure-gaining processes.
 
-To do this, we extract the weighted quotations said by each candidate **within 300 days** (roughly a year) before the election day. We then accumulate the weighted quotations **by month**, so that we get a 10-dimensional feature vector per candidate. This vector reflects how weighted quotations said by each candidate change over time. The vectors are **L2 normalized**, so that the euclidean distance between them reflects the cosine similarity, which better measures the distance between different shapes of the exposure-gaining process. We then apply **KMeans clustering** to the feature vector (K=2 has the lowest silhouette score). To better visualize the cluster, we use PCA to lower the dimension to 2 and label the cluster with different colors:
+To do this, we extract the weighted quotations said by each candidate **within 300 days** (roughly a year) before the election day. We then accumulate the weighted quotations **by month**, so that we get a 10-dimensional feature vector per candidate. This vector reflects how weighted quotations said by each candidate change over time. The vectors are **L2 normalized**, so that the euclidean distance between them reflects the cosine similarity, which better measures the distance between different shapes of the exposure-gaining process. We then apply **KMeans clustering** to the feature vector (K=3 has the best silhouette score). To better visualize the cluster, we use PCA to lower the dimension to 2 and label the cluster with different colors:
 
 <p align="center">
   <img src="figures/pca_cluster.png" />
 </p>
 
-The method appears to be efficient at separating the clusters. We then look at the centroid of the two clusters and see two types of exposure gaining: some politicians have **one high peak** of quotations just before the election (type 0), while others have **several peaks** before the election (type 1).
+The method appears to be efficient at separating the clusters. We then look at the centroid of the three clusters and see three types of exposure gaining: politicians in type 0 have **several peaks** of quotations before the election; politicians in type 1 have **one major peak** within a month before the election; and politicians in type 2 have **one major peak** roughly 1-2 months before the election.
 
 <p align="center">
-  <img src="figures/2_types_gain.png"  width="800"/>
+  <img src="figures/3_types_center.png"  width="800"/>
 </p>
 
-For each type, we look at one example: Dianne Feinstein for type 0 and Allen Buckley for type 1.
+For each type, we look at one example candidate:
 
 <p align="center">
-  <img src="figures/2_types_gain_sample.png"  width="800"/>
+  <img src="figures/3_types_sample.png"  width="800"/>
 </p>
+
+We then compare the final vote rates of politicians in those three different clusters:
+
+<p align="center">
+  <img src="figures/3_types_box.png" />
+</p>
+
+Interestingly, politicians in type 1 appear to have significantly **higher vote rate** (t-test, p-value < 0.01). The major quotation peak right before the election may indicate that the last month is crucial in the election campaign.
 
 ## Quotations can predict election result!
 
 We further explore if the election results can be predicted from the quotation data. We use the **monthly aggregated quotation feature vectors** used in the clustering analysis above. Besides, party affiliation can have a significant effect on the result. For senate candidates in each state's election, we find the **vote rate of their affiliated party** in the previous presidential election[2]. This party vote rate reflects the overall ideology of the state. We concatenate this voting feature to the quotation feature vectors and use this 11-dimensional vector for predicting the election result.
 
-We use XGBoost classifier. First, we calculate the accuracy and precision on the training datasets by 5 fold cross-validation. Cross-Validated training precision is 0.73 (+/- 0.35) and  cross-validated training recall is 0.69 (+/- 0.23). Then, we fit our model in the training data and calculate accuracy and F1 score on the test data. We obtain accuracy 0.9069767441860465 and f1 score 0.9 on the test data.
+We get the best performance using the XGBoost classifier. First, we calculate the accuracy and precision of the training datasets by 5 fold cross-validation. Cross-Validated training accuracy is 0.79 (+/- 0.21) and cross-validated training f1 score is 0.70 (+/- 0.27). Then, we fit our model in the training data and calculate accuracy and F1 score on the test data. We obtain **accuracy 0.91 and f1 score 0.90** on the test data.
+
+**Quotations can be used to predict election result!**
 
 
 ## Sentiment of quotations reflect support rate.
@@ -109,13 +119,16 @@ For quotations mentioning senate candidates, they contain attitudes (positive or
   <img src="figures/sanders_senti.png" />
 </p>
 
-To examine whether sentiments in quotations can represent support rate, we can calculate the **average sentiment score of quotations** mentioning each candidate **within a year before the election**. We discard those which have low vote_rate (< 1%). The relation can be visualized by scatter plots of average sentiment score and final vote rate:
+To examine whether sentiments in quotations can represent support rate, we can calculate the **average sentiment score of quotations** mentioning each candidate **within a year before the election**. We discard candidates having a low vote_rate (< 1%), because they are often representatives of small parties and their quotation data are very limited. The relation can be visualized by scatter plots of average sentiment score and final vote rate:
 
 <p align="center">
   <img src="figures/senti_vs_vote.png" />
 </p>
 
-The Pearson Correlation is -0.11, with P-Value 0.03 (< 0.05), which is statistically significant. Such observation seems to be contrary to the intuition that more favorable people will recieve more votes. There are two possible explaination for this: (1) the mention data are limited and the correlation here is spurious. (2) Those candidates who adopt a middle way campaign strategy will be likely to receive more votes from both sides.  
+The Pearson Correlation is -0.11, with a P-Value 0.03 (< 0.05), which is statistically significant. **Sentiments in the media falsely reflect the public's opinions!** Such observation seems to be contrary to the intuition that more favorable people will receive more votes. There are three possible explanations for this: 
+1. The dataset of quotes mentioning candidates is limited and the correlation here is spurious. 
+2. Those candidates who adopt a middle way campaign strategy will be likely to receive more votes from both sides. 
+3. Media do not reflect the actual ideas of most people (which was seldomly realized by the public until Donald Trump).
 
 ## Reference:
 
@@ -129,39 +142,3 @@ You can use the [editor on GitHub](https://github.com/zihan-wu/SenateQuotationWe
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
 
-
-
-
-
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/zihan-wu/SenateQuotationWeb/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
