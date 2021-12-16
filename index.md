@@ -35,7 +35,7 @@ We can also calculate each candidate's total quotations before the election and 
 We further examine the correlation for both types of quotations by calculating the **Pearson Correlation Coefficient**. 
 
 1. For the quotations said by the senate candidates, we have Pearson Correlation 0.61, with P-Value 3.5e-26. 
-2. For the quotations said by the senate candidates, we have Pearson Correlation 0.53, with P-Value 1.1e-22.
+2. For the quotations mention the senate candidates, we have Pearson Correlation 0.53, with P-Value 1.1e-22.
 
 **Senates with higher number of quotations before election tend to have higher vote rate!**
 
@@ -67,7 +67,7 @@ Now, we can look at the weighted quotations said by Bernie Sanders:
 We can also calculate the correlation between weighted total quotations (before the elections) and vote rate:
 
 1. For the quotations said by the senate candidates, we have Pearson Correlation 0.62, with P-Value 1.8e-27. 
-2. For the quotations said by the senate candidates, we have Pearson Correlation 0.59, with P-Value 3.4e-29.
+2. For the quotations mention the senate candidates, we have Pearson Correlation 0.59, with P-Value 3.4e-29.
 
 The result is very close to the correlations between the number of quotations and vote rate. **Senates with a higher number of weighted quotations before the election also tend to have a higher vote rate!**
 
