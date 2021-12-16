@@ -1,6 +1,10 @@
 # Can Quotations of Politicians Indicate Election Results?
 
-[**View Code on Github**](https://github.com/epfl-ada/ada-2021-project-chilldatagroup.git)
+<p align="center">
+  <img src="figures/SenateMap.png" />
+  (Map of current seated senates colored by party, from https://www.270towin.com/2022-senate-election/)
+</p>
+
 
 ## Background:
 
@@ -73,6 +77,11 @@ We can also calculate the correlation between weighted total quotations (before 
 
 The result is very similar to the correlations between the number of quotations and vote rate. **Senates with a higher number of weighted quotations before the election also tend to have a higher vote rate!**
 
+### Here's a Fun Fact: the quote with highest weighted occurences is
+
+<p align="center">
+  <img src="figures/Romney_Quote.jpeg" />
+</p>
 
 ## Are there different exposure-gaining process for different politicians?
 
@@ -132,11 +141,16 @@ The Pearson Correlation is -0.11, with a P-Value 0.03 (< 0.05), which is statist
 2. Those candidates who adopt a **less aggressive campaign strategy** (so the average sentiment is more neutral) may receive more votes from the public. 
 3. Media do not **reflect the actual ideas of most people** (which was seldomly realized by the public until Donald Trump).
 
+## Availability:
+You can access the code in Milestone3.ipynb from this repository: [**View Code on Github**](https://github.com/epfl-ada/ada-2021-project-chilldatagroup.git)
+
 ## Reference:
 
 [1]MIT Election Data and Science Lab, 2017, "U.S. Senate 1976–2020", https://doi.org/10.7910/DVN/PEJ5QU, Harvard Dataverse, V5.
 
 [2]MIT Election Data and Science Lab, 2017, "U.S. President 1976–2020", https://doi.org/10.7910/DVN/42MVDX, Harvard Dataverse, V6.
+
+
 
 
 
