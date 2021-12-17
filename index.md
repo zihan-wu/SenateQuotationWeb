@@ -77,7 +77,8 @@ We can also calculate the correlation between weighted total quotations (before 
 
 The result is very similar to the correlations between the number of quotations and vote rate. **Senates with a higher number of weighted quotations before the election also tend to have a higher vote rate!**
 
-### Here's a Fun Fact: the quote with highest weighted occurences is
+### Fun Fact
+**The quote with highest weighted occurences is:**
 
 <p align="center">
   <img src="figures/Romney_Quote.jpeg" />
